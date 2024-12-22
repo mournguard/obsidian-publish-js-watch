@@ -75,24 +75,22 @@ export default class PublishJsWatch extends Plugin {
 	}
 
 	private sync = () => {
-		let app = (this.app as any) // Not gonna type everything here so
-
-		let file = app.vault.getFileByPath("publish.js")
+		let file = this.app.vault.getFileByPath("publish.js")
 		if (!file) return
 		
-		if (!app?.internalPlugins?.plugins["publish"]?.instance) {
-			new Notice("Publish.js Watch: Publish plugin missing.")
+		if (!this.app?.internalPlugins?.plugins["publish"]?.instance) {
+			new Notice("Publish.js Watch: `Publish` plugin missing.")
 			this.unload()
 			return
 		}
 
-		if (!app.internalPlugins.plugins["publish"].instance.modal || !this.warning) {
-			app.internalPlugins.plugins["publish"].instance.uploadFile(file)
+		if (!this.app.internalPlugins.plugins["publish"].instance.modal || !this.warning) {
+			this.app.internalPlugins.plugins["publish"].instance.uploadFile(file)
 			this.addWarning()
 		} else {
 			this.status.setText(this.watching ? "| publish.js 🚀 |" : "")
-			app.internalPlugins.plugins["publish"].instance.modal.uploadProgressSection.addChanges([{path: file.path, ctime: 0, mtime: 0, size: 0, type: "new", checked: !0}])
-			app.internalPlugins.plugins["publish"].instance.modal.uploadProgressSection.show()
+			this.app.internalPlugins.plugins["publish"].instance.modal.uploadProgressSection.addChanges([{path: file.path, ctime: 0, mtime: 0, size: 0, type: "new", checked: !0}])
+			this.app.internalPlugins.plugins["publish"].instance.modal.uploadProgressSection.show()
 			app.internalPlugins.plugins["publish"].instance.modal.uploadProgressSection.startUpload().then(() => {
 				this.status.setText(this.watching ? "| publish.js 👀 |" : "")
 			})
