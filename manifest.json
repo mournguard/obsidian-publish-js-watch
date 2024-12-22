@@ -1,0 +1,9 @@
+{
+	"id": "publish-js-watch",
+	"name": "Publish.js Watch",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "Automatically publishes an Obsidian Publish(ed) vault's publish.js",
+	"author": "Mournguard",
+	"isDesktopOnly": false
+}
